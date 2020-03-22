@@ -25,20 +25,52 @@ function isUserAuthenticated(){
     return true;
 }
 
-app.post('/chatBot',  function(req, res) {
-    if (!isUserAuthenticated()) {
-        res.status(403).send();
-        return
-    }
-    const options = {
+const appConfig = {
+    isHealthy : false,
+    options : {
         method: 'POST',
         uri: 'https://directline.botframework.com/v3/directline/tokens/generate',
         headers: {
             'Authorization': 'Bearer ' + WEBCHAT_SECRET
         },
         json: true
-    };
-    rp(options)
+    }
+};
+
+function healthy(res) {
+    appConfig.isHealthy = true;
+    res.status(200).send({
+        health: "Ok"
+    });
+}
+
+function unhealthy(res) {
+    res.status(503).send({
+        health: "Unhealthy"
+    });
+}
+
+app.get('/health', function(req, res){
+    if (!appConfig.isHealthy) {
+        rp(appConfig.options)
+            .then((body) => {
+                healthy(res);
+            })
+            .catch((err) =>{
+                unhealthy(res);
+            });
+    }
+    else {
+        healthy(res);
+    }
+});
+
+app.post('/chatBot',  function(req, res) {
+    if (!isUserAuthenticated()) {
+        res.status(403).send();
+        return
+    }
+    rp(appConfig.options)
         .then(function (parsedBody) {
             var userid = req.query.userId || req.cookies.userid;
             if (!userid) {
@@ -59,6 +91,7 @@ app.post('/chatBot',  function(req, res) {
             res.send(jwtToken);
         })
         .catch(function (err) {
+            appConfig.isHealthy = false;
             res.status(err.statusCode).send();
             console.log("failed");
         });
