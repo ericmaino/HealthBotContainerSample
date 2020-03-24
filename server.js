@@ -16,6 +16,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 // begin listening for requests.
 const port = process.env.PORT || 3000;
+const region = process.env.REGION || "Unknown";
+
 app.listen(port, function() {
     console.log("Express server listening on port " + port);
 });
@@ -40,13 +42,15 @@ const appConfig = {
 function healthy(res) {
     appConfig.isHealthy = true;
     res.status(200).send({
-        health: "Ok"
+        health: "Ok",
+        region: region
     });
 }
 
 function unhealthy(res) {
     res.status(503).send({
-        health: "Unhealthy"
+        health: "Unhealthy",
+        region: region
     });
 }
 
