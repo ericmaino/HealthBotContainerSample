@@ -1,0 +1,146 @@
+#bot-frame:hover {
+    opacity: .85;
+}
+
+#bot-frame:active {
+    border-color: aquamarine;
+    border-width: 10px;
+}
+
+#bot-frame:focus {
+    opacity: .24;
+}
+
+#bot-frame {
+    outline: none;
+    cursor: pointer;
+    z-index: 1001;
+    font-weight: 700;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    width: 220px;
+    height: 100px;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0)
+}
+
+#bot-frame,
+#bot-frame:after,
+#bot-frame:before {
+    position: fixed;
+    display: block;
+    bottom: 110px;
+    right: 0px;
+    content: ""
+}
+
+#bot-frame:after {
+    bottom: -8px
+}
+
+#chatbot-iframe {
+    margin: 0 !important;
+    position:absolute; 
+    top:0; left:0; 
+    width:100%; 
+    height:100%; 
+    border:0;
+}
+
+#healthbot {
+    border: 1px solid #A8A8A8;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0px;
+    margin: 0 -1500px 0;
+    background: #fff;
+    border-bottom: none;
+    z-index: 100000;
+    border: 1;
+    border-radius: 8px;
+}
+
+#bot-header {
+    width: 350px;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#bot-headertop {
+    width: 30px;
+    margin: 0px;
+    align-self: center;
+}
+
+#overlaybot {
+    width: 350px;
+    height: 90%;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+#bot-close {
+    width: 30px;
+    margin: 0px;
+    align-self: center;
+    margin-right: 10px;
+}
+
+@-webkit-keyframes bot-loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes bot-loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#loading-container {
+    position: absolute;
+    top: 30px;
+}
+
+#loading {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #034e74;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    animation: bot-loading 0.75s linear infinite;
+    justify-self: center;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#loading-text {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 10px;
+    color: #034e74;
+    font-weight: 600;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+#linkbot:hover {
+    outline: thin;
+    background-color: rgb(255, 196, 0);
+    cursor: pointer;
+}
